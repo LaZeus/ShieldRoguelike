@@ -21,7 +21,7 @@ public class Turret : MonoBehaviour {
 	
 	private void Start()
     {
-        InvokeRepeating("Shoot", 1.0f, 1f);
+        InvokeRepeating("Shoot", 0.5f, 1f);
     }
 
     private void Shoot()
