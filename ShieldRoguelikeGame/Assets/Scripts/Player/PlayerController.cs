@@ -33,15 +33,16 @@ public class PlayerController : MonoBehaviour {
 
     #endregion
 
+    #region Moving
+
     protected void Moving()
     {
         float Input_x = Input.GetAxisRaw("Horizontal");
         float Input_y = Input.GetAxisRaw("Vertical");
 
-        if (mState == States.Normal)
-        {
-            rb.velocity = new Vector2(Input_x, Input_y).normalized * speed;
-        }
+        if (mState == States.Normal)     
+            rb.velocity = new Vector2(Input_x, Input_y).normalized * speed;       
     }
 
+    #endregion
 }
