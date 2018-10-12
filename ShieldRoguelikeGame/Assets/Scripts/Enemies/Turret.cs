@@ -11,6 +11,9 @@ public class Turret : MonoBehaviour {
     private Transform player;
 
     [SerializeField]
+    private Transform bulletPool;
+
+    [SerializeField]
     private float bulletSpeed;
 
 	private void Awake ()
@@ -27,13 +30,14 @@ public class Turret : MonoBehaviour {
     private void Shoot()
     {
         Vector3 dif = (player.position - transform.position).normalized;
-        Vector3 summonPos = transform.position + dif * 2;
+        Vector3 summonPos = transform.position;
 
         float rot = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
         Quaternion summonRot = Quaternion.Euler(0, 0, rot - 90);
 
         GameObject bul = Instantiate(bullet, summonPos, summonRot, transform);
         bul.name = bullet.name;
+        bul.transform.parent = bulletPool;
 
         bul.GetComponent<Rigidbody2D>().velocity = dif * bulletSpeed;
     }

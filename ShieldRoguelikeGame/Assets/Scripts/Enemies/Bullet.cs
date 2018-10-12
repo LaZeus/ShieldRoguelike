@@ -18,9 +18,15 @@ public class Bullet : MonoBehaviour {
         rb = transform.GetComponent<Rigidbody2D>();
     }
 
-    /*private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.tag == "Shield")
+        if (col.tag == "Turret" && gameObject.layer == 11)
+        {
+            Destroy(col.gameObject);
+        }
+
+
+        /*if (col.transform.tag == "Shield")
         {
             Vector2 target = (transform.position - col.transform.position).normalized;
 
@@ -34,8 +40,8 @@ public class Bullet : MonoBehaviour {
             rb.velocity = vel * deflectedBulletSpeed;
                     
             transform.gameObject.layer = playerBullets;
-        }
-    }*/
+        }*/
+    }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -43,7 +49,8 @@ public class Bullet : MonoBehaviour {
             StartCoroutine(ChangeSpeed());
         else if (col.transform.tag == "Player")
         {
-            Destroy(this.gameObject);
+            Destroy(col.gameObject);
+            Destroy(this.gameObject);          
             // replace this with a message to the player or GM
         }
     }
