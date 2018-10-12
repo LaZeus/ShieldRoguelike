@@ -20,6 +20,9 @@ public class Turret : MonoBehaviour {
     {
         if (player == null)
             player = GameObject.Find("Player").transform;
+
+        if (bulletPool == null)
+            bulletPool = GameObject.Find("Bullets").transform;
 	}
 	
 	private void Start()
