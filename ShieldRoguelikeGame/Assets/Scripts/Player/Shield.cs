@@ -13,6 +13,12 @@ public class Shield : MonoBehaviour {
     [SerializeField]
     private float distance;
 
+    [SerializeField]
+    private float bulletCounter = 0;
+
+    [SerializeField]
+    private float bulletMax;
+
     private void Awake()
     {
         if (Cam == null)
@@ -35,5 +41,14 @@ public class Shield : MonoBehaviour {
         // rotation
         float rot = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot - 90);
+    }
+
+    private void BulletDeflected(int bulletsAdded)
+    {
+        if (bulletCounter + bulletsAdded > bulletMax)
+            bulletCounter = bulletMax;
+        else
+            bulletCounter += bulletsAdded;
+        Debug.Log(bulletCounter);
     }
 }

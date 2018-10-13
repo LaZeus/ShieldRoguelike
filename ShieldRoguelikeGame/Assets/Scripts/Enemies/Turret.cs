@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour {
+public class Turret : Enemy {
 
     [SerializeField]
     private GameObject bullet;
@@ -32,6 +32,9 @@ public class Turret : MonoBehaviour {
 
     private void Shoot()
     {
+        if (player == null)
+            return;
+        
         Vector3 dif = (player.position - transform.position).normalized;
         Vector3 summonPos = transform.position;
 

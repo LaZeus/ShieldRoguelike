@@ -17,11 +17,11 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Bullets
+  - HostileEnemy
   - Shield
-  - PlayerBullets
-  - 
-  - 
+  - PlayerProjectile
+  - Enemies
+  - Walls
   - 
   - 
   - 

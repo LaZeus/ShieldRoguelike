@@ -24,29 +24,12 @@ public class Bullet : MonoBehaviour {
         {
             Destroy(col.gameObject);
         }
-
-
-        /*if (col.transform.tag == "Shield")
-        {
-            Vector2 target = (transform.position - col.transform.position).normalized;
-
-            //float rot = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.Euler(0, 0, -rot + 90);
-            //rb.velocity = (transform.position - col.transform.position).normalized * deflectedBulletSpeed;
-
-            Vector2 vel = Vector2.Reflect(-target, col.transform.up).normalized;
-            float rot = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
-
-            rb.velocity = vel * deflectedBulletSpeed;
-                    
-            transform.gameObject.layer = playerBullets;
-        }*/
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         if(col.transform.tag == "Shield")
-            StartCoroutine(ChangeSpeed());
+            StartCoroutine(ChangeSpeed(col.transform.parent.GetComponent<Shield>()));
         else if (col.transform.tag == "Player")
         {
             Destroy(col.gameObject);
@@ -55,8 +38,10 @@ public class Bullet : MonoBehaviour {
         }
     }
 
-    IEnumerator ChangeSpeed()
+    IEnumerator ChangeSpeed(Shield shield)
     {
+        shield.SendMessage("BulletDeflected", 1);
+
         yield return new WaitForFixedUpdate();
 
         // rotation
