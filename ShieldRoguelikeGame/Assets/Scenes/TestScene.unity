@@ -358,6 +358,11 @@ Prefab:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114892494727894960, guid: 5d14de3376cf85940843adb069f3bca3,
+        type: 2}
+      propertyPath: spRndr
+      value: 
+      objectReference: {fileID: 1546201426}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
   m_IsPrefabAsset: 0
@@ -374,6 +379,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1546201426 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 212892716148706510, guid: 5d14de3376cf85940843adb069f3bca3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1111133897}
 --- !u!1001 &1577154510
 Prefab:
   m_ObjectHideFlags: 0

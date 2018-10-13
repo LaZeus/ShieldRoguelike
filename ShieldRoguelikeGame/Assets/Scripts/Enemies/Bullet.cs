@@ -29,7 +29,16 @@ public class Bullet : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D col)
     {
         if(col.transform.tag == "Shield")
-            StartCoroutine(ChangeSpeed(col.transform.parent.GetComponent<Shield>()));
+        {
+            Shield shield = col.transform.parent.GetComponent<Shield>();
+            if(shield.mState == Shield.States.Storing)
+            {
+                shield.SendMessage("ProjectileDeflected", 1);
+                Destroy(this.gameObject);
+                return;
+            }              
+            StartCoroutine(ChangeSpeed(shield));
+        }          
         else if (col.transform.tag == "Player")
         {
             Destroy(col.gameObject);
@@ -39,9 +48,7 @@ public class Bullet : MonoBehaviour {
     }
 
     IEnumerator ChangeSpeed(Shield shield)
-    {
-        shield.SendMessage("ProjectileDeflected", 1);
-
+    {       
         yield return new WaitForFixedUpdate();
 
         // rotation

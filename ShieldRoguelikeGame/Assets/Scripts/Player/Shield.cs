@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour {
 
+    public enum States { Normal, Storing, Shooting };
+
+
+    public States mState;
+
     [SerializeField]
     private Camera Cam;
 
     [SerializeField]
     private Transform player;
+
+    [SerializeField]
+    private SpriteRenderer spRndr;
 
     [SerializeField]
     private GameObject myProjectile;
@@ -17,21 +25,27 @@ public class Shield : MonoBehaviour {
     private float distance;
 
     [SerializeField]
-    private float projectileCounter = 0;
+    private int projectileCounter = 0;
 
     [SerializeField]
-    private float projectileMax;
+    private int projectileMax;
+
+    private float startTime;
+    private float chargingTime = 2f;
 
     private void Awake()
     {
         if (Cam == null)
-            Cam = GameObject.Find("Camera").GetComponent<Camera>();        
+            Cam = GameObject.Find("Camera").GetComponent<Camera>();
+
+        mState = States.Normal;
     }
 
     private void Update()
     {
         ShieldPos();
         ShootProjectile();
+        StoreProjectiles();
     }
     #region Shield
 
@@ -54,12 +68,55 @@ public class Shield : MonoBehaviour {
 
     private void ShootProjectile()
     {
-        if (Input.GetButtonDown("Attack") && projectileCounter > 0)
+        /*if (Input.GetButtonDown("Attack") && projectileCounter > 0)
         {
-            GameObject proj = Instantiate(myProjectile, transform.position, transform.rotation, null);
-            proj.name = myProjectile.name;
-            proj.GetComponent<Rigidbody2D>().velocity = transform.up * 15;
+            Shoot();
+        }*/
+    }
+
+    private void Shoot()
+    {
+        projectileCounter--;
+        GameObject proj = Instantiate(myProjectile, transform.position, transform.rotation, null);
+        proj.name = myProjectile.name;
+        proj.GetComponent<Rigidbody2D>().velocity = transform.up * 15;       
+    }
+
+    private void StoreProjectiles()
+    {
+        if (Input.GetButton("Attack"))
+        {
+            if (mState == States.Normal)
+            {
+                mState = States.Storing;
+                startTime = Time.time;
+                spRndr.color = Color.green;
+            }
+            else if(Time.time - startTime > chargingTime && mState !=States.Shooting)
+            {
+                mState = States.Shooting;
+                StartCoroutine(ShootChargedProjectiles(projectileCounter));
+            }
         }
+        else if(mState == States.Storing)
+        {
+            mState = States.Shooting;
+            StartCoroutine(ShootChargedProjectiles(projectileCounter));
+        }
+    }
+
+    IEnumerator ShootChargedProjectiles(int projCounter)
+    {
+        spRndr.color = Color.red;
+
+        for (int i = 0; i < projCounter; i++)
+        {
+            Shoot();
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        mState = States.Normal;
+        spRndr.color = Color.yellow;
     }
 
     private void ProjectileDeflected(int projectilesAdded)
@@ -68,7 +125,6 @@ public class Shield : MonoBehaviour {
             projectileCounter = projectileMax;
         else
             projectileCounter += projectilesAdded;
-        Debug.Log(projectileCounter);
     }
 
     #endregion
