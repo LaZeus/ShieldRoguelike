@@ -26,6 +26,10 @@ public class Bullet : MonoBehaviour {
         }
     }
 
+    /// 
+    /// REFACTORING
+    /// 
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if(col.transform.tag == "Shield")

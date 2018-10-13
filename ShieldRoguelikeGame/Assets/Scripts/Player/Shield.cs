@@ -74,6 +74,10 @@ public class Shield : MonoBehaviour {
         }*/
     }
 
+    /// 
+    /// REFACTORING
+    /// 
+
     private void Shoot()
     {
         projectileCounter--;
@@ -81,6 +85,10 @@ public class Shield : MonoBehaviour {
         proj.name = myProjectile.name;
         proj.GetComponent<Rigidbody2D>().velocity = transform.up * 15;       
     }
+
+    /// 
+    /// REFACTORING
+    /// 
 
     private void StoreProjectiles()
     {
@@ -105,6 +113,10 @@ public class Shield : MonoBehaviour {
         }
     }
 
+    /// 
+    /// REFACTORING
+    /// 
+
     IEnumerator ShootChargedProjectiles(int projCounter)
     {
         spRndr.color = Color.red;
@@ -118,6 +130,10 @@ public class Shield : MonoBehaviour {
         mState = States.Normal;
         spRndr.color = Color.yellow;
     }
+
+    /// 
+    /// REFACTORING
+    /// 
 
     private void ProjectileDeflected(int projectilesAdded)
     {
