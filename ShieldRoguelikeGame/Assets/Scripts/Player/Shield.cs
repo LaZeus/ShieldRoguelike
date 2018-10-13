@@ -11,13 +11,16 @@ public class Shield : MonoBehaviour {
     private Transform player;
 
     [SerializeField]
+    private GameObject myProjectile;
+
+    [SerializeField]
     private float distance;
 
     [SerializeField]
-    private float bulletCounter = 0;
+    private float projectileCounter = 0;
 
     [SerializeField]
-    private float bulletMax;
+    private float projectileMax;
 
     private void Awake()
     {
@@ -28,7 +31,9 @@ public class Shield : MonoBehaviour {
     private void Update()
     {
         ShieldPos();
+        ShootProjectile();
     }
+    #region Shield
 
     private void ShieldPos()
     {
@@ -43,12 +48,29 @@ public class Shield : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, rot - 90);
     }
 
-    private void BulletDeflected(int bulletsAdded)
+    #endregion
+
+    #region Shooting
+
+    private void ShootProjectile()
     {
-        if (bulletCounter + bulletsAdded > bulletMax)
-            bulletCounter = bulletMax;
-        else
-            bulletCounter += bulletsAdded;
-        Debug.Log(bulletCounter);
+        if (Input.GetButtonDown("Attack") && projectileCounter > 0)
+        {
+            GameObject proj = Instantiate(myProjectile, transform.position, transform.rotation, null);
+            proj.name = myProjectile.name;
+            proj.GetComponent<Rigidbody2D>().velocity = transform.up * 15;
+        }
     }
+
+    private void ProjectileDeflected(int projectilesAdded)
+    {
+        if (projectileCounter + projectilesAdded > projectileMax)
+            projectileCounter = projectileMax;
+        else
+            projectileCounter += projectilesAdded;
+        Debug.Log(projectileCounter);
+    }
+
+    #endregion
+
 }

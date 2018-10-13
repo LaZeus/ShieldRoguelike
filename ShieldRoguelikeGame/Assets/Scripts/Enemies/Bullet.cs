@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour {
 
     IEnumerator ChangeSpeed(Shield shield)
     {
-        shield.SendMessage("BulletDeflected", 1);
+        shield.SendMessage("ProjectileDeflected", 1);
 
         yield return new WaitForFixedUpdate();
 

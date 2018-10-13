@@ -337,6 +337,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114892494727894960, guid: 5d14de3376cf85940843adb069f3bca3,
+        type: 2}
+      propertyPath: bulletMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892494727894960, guid: 5d14de3376cf85940843adb069f3bca3,
+        type: 2}
+      propertyPath: projectileMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892494727894960, guid: 5d14de3376cf85940843adb069f3bca3,
+        type: 2}
+      propertyPath: myProjectile
+      value: 
+      objectReference: {fileID: 1832700820638950, guid: 15f9773b4f7d2ee41a1ee70cb7bae307,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
   m_IsPrefabAsset: 0
