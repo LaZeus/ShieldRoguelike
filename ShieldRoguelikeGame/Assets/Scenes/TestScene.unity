@@ -150,13 +150,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114469706201419388, guid: 3a1bff2866467f841b253cf097d30453,
         type: 2}
       propertyPath: bulletPool
       value: 
       objectReference: {fileID: 1472500655}
+    - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
   m_IsPrefabAsset: 0
@@ -197,11 +201,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
       propertyPath: m_Name
       value: Turret (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
@@ -335,7 +343,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4175405599333734, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114892494727894960, guid: 5d14de3376cf85940843adb069f3bca3,
         type: 2}
@@ -377,7 +385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1546201426 stripped
 SpriteRenderer:
@@ -421,11 +429,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
       propertyPath: m_Name
       value: Turret (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a1bff2866467f841b253cf097d30453, type: 2}

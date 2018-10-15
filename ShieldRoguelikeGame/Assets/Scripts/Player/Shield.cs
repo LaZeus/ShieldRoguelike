@@ -44,7 +44,6 @@ public class Shield : MonoBehaviour {
     private void Update()
     {
         ShieldPos();
-        ShootProjectile();
         StoreProjectiles();
     }
     #region Shield

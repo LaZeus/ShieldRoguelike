@@ -8,8 +8,13 @@ public class Player : PlayerController {
     {
         Initialization();
     }
-	
-	private void FixedUpdate()
+
+    private void Update()
+    {
+        Inputs();
+    }
+
+    private void FixedUpdate()
     {
         PlayerControls();
 	}
