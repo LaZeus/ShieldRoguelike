@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chaser : Enemy {
 
-    protected enum States { Normal, Attacking }
+    protected enum States { Normal, Attacking, Stunned }
 
     [SerializeField]
     protected float speed;
@@ -17,6 +17,8 @@ public class Chaser : Enemy {
 
     protected Actions Move;
     protected Actions Attack;
+
+    protected Coroutine AttackingCoroutine;
 
 
     void Awake ()
@@ -51,7 +53,9 @@ public class Chaser : Enemy {
 
     protected void Charge()
     {
-        StartCoroutine(Leap());
+        if (AttackingCoroutine != null)
+            StopCoroutine(AttackingCoroutine);
+        AttackingCoroutine = StartCoroutine(Leap());
     }
 
     IEnumerator Leap()
@@ -61,6 +65,8 @@ public class Chaser : Enemy {
         /// Please don't cringe :)
         ///
 
+        yield return new WaitForSeconds(Random.Range(3,10));
+
         mState = States.Attacking;
 
         transform.GetComponent<SpriteRenderer>().color = Color.magenta;
@@ -69,9 +75,9 @@ public class Chaser : Enemy {
 
         transform.GetComponent<SpriteRenderer>().color = Color.red;
 
-        Vector2 target = player.transform.position;
+        Vector2 target = player.transform.position + (player.transform.position - transform.position).normalized;
 
-        rb.velocity = (target - (Vector2)transform.position).normalized * speed * 5;
+        rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
 
         while(Vector2.Distance(transform.position, target) > 0.2f)
         {
@@ -81,6 +87,37 @@ public class Chaser : Enemy {
         rb.velocity = Vector2.zero;
         transform.GetComponent<SpriteRenderer>().color = Color.cyan;
         mState = States.Normal;
+
+        Charge();
+    }
+
+    protected void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.transform.tag == "Shield")
+        {
+            StopCoroutine(AttackingCoroutine);
+            StartCoroutine(Stunned());
+        }
+        else if(col.transform.tag == "Player")
+        {
+            Destroy(col.transform.gameObject);
+        }
+    }
+
+    IEnumerator Stunned()
+    {
+        mState = States.Stunned;
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        transform.GetComponent<SpriteRenderer>().color = Color.white;
+
+        yield return new WaitForSeconds(0.5f);
+
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        mState = States.Normal;     
+        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
+        Charge();
+
     }
 
 }
