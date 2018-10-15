@@ -8,9 +8,6 @@ public class Turret : Enemy {
     private GameObject bullet;
 
     [SerializeField]
-    private Transform player;
-
-    [SerializeField]
     private Transform bulletPool;
 
     [SerializeField]
@@ -18,8 +15,7 @@ public class Turret : Enemy {
 
 	private void Awake ()
     {
-        if (player == null)
-            player = GameObject.Find("Player").transform;
+        FindPlayer();
 
         if (bulletPool == null)
             bulletPool = GameObject.Find("Bullets").transform;
