@@ -127,7 +127,7 @@ public class Shield : MonoBehaviour {
         }
 
         mState = States.Normal;
-        spRndr.color = Color.yellow;
+        spRndr.color = Color.white;
     }
 
     /// 

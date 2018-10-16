@@ -68,8 +68,8 @@ public class PlayerController : MonoBehaviour {
         mState = States.Dashing;
         Vector2 direction = (shield.transform.position - transform.position).normalized;
 
-        if (Vector3.Dot(rb.velocity.normalized, direction) < 0)
-            direction *= -1;
+        //if (Vector3.Dot(rb.velocity.normalized, direction) < 0)
+        //direction *= -1;
 
         rb.velocity = direction * 5 * speed;
 

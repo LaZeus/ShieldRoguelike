@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64d02b3827f54e4787f3a465b0f6a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1987051089729606, guid: 3606f9bed0e4d924595134931ca64e6b, type: 2}
   player: {fileID: 0}
+  bullet: {fileID: 1987051089729606, guid: 3606f9bed0e4d924595134931ca64e6b, type: 2}
   bulletPool: {fileID: 0}
   bulletSpeed: 10
 --- !u!212 &212228371961109116
@@ -168,7 +168,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b209233830e8f9049aca5619bb186f28, type: 3}
-  m_Color: {r: 0.25882354, g: 0.6046296, b: 0.6313726, a: 1}
+  m_Color: {r: 0.9529412, g: 0.33333334, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

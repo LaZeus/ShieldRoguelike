@@ -13,6 +13,8 @@ public class Chaser : Enemy {
 
     protected Rigidbody2D rb;
 
+    protected SpriteRenderer sprRndr;
+
     protected delegate void Actions();
 
     protected Actions Move;
@@ -26,6 +28,8 @@ public class Chaser : Enemy {
         FindPlayer();
 
         mState = States.Normal;
+        sprRndr = transform.GetComponent<SpriteRenderer>();
+        sprRndr.color = Color.cyan;
         rb = transform.GetComponent<Rigidbody2D>();
         Move = Walk;
         Attack = Charge;
@@ -60,35 +64,35 @@ public class Chaser : Enemy {
 
     IEnumerator Leap()
     {
-        ///
-        /// Yeah, yeah..I'm not storing the Sprite Renderer..I know..This is still a prototype
-        /// Please don't cringe :)
-        ///
 
         yield return new WaitForSeconds(Random.Range(3,10));
 
         mState = States.Attacking;
 
-        transform.GetComponent<SpriteRenderer>().color = Color.magenta;
+        sprRndr.color = Color.magenta;
 
         yield return new WaitForSeconds(0.2f);
 
-        transform.GetComponent<SpriteRenderer>().color = Color.red;
+        sprRndr.color = Color.red;
 
-        Vector2 target = player.transform.position + (player.transform.position - transform.position).normalized;
 
-        rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
-
-        while(Vector2.Distance(transform.position, target) > 0.2f)
+        if (player != null)
         {
-            yield return null;
+            Vector2 target = player.transform.position + (player.transform.position - transform.position).normalized;
+
+            rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
+
+            while (Vector2.Distance(transform.position, target) > 0.2f)
+            {
+                yield return null;
+            }
+
+            rb.velocity = Vector2.zero;
+            sprRndr.color = Color.cyan;
+            mState = States.Normal;
+
+            Charge();
         }
-
-        rb.velocity = Vector2.zero;
-        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
-        mState = States.Normal;
-
-        Charge();
     }
 
     protected void OnCollisionEnter2D(Collision2D col)
@@ -96,26 +100,32 @@ public class Chaser : Enemy {
         if(col.transform.tag == "Shield")
         {
             StopCoroutine(AttackingCoroutine);
-            StartCoroutine(Stunned());
+            StartCoroutine(Stunned(col.transform.position));
         }
         else if(col.transform.tag == "Player")
         {
             Destroy(col.transform.gameObject);
         }
+        else if (col.transform.tag == "PlayerAttack")
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+        }
     }
 
-    IEnumerator Stunned()
+    IEnumerator Stunned(Vector2 pos)
     {
         mState = States.Stunned;
-        rb.velocity = Vector2.zero;
+
         rb.bodyType = RigidbodyType2D.Kinematic;
-        transform.GetComponent<SpriteRenderer>().color = Color.white;
+        rb.velocity = ((Vector2)transform.position - pos).normalized;
+        sprRndr.color = Color.yellow;
 
         yield return new WaitForSeconds(0.5f);
 
         rb.bodyType = RigidbodyType2D.Dynamic;
-        mState = States.Normal;     
-        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
+        mState = States.Normal;
+        sprRndr.color = Color.cyan;
         Charge();
 
     }
