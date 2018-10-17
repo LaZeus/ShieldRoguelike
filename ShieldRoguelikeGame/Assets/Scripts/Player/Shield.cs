@@ -65,14 +65,6 @@ public class Shield : MonoBehaviour {
 
     #region Shooting
 
-    private void ShootProjectile()
-    {
-        /*if (Input.GetButtonDown("Attack") && projectileCounter > 0)
-        {
-            Shoot();
-        }*/
-    }
-
     /// 
     /// REFACTORING
     /// 
@@ -80,8 +72,12 @@ public class Shield : MonoBehaviour {
     private void Shoot()
     {
         projectileCounter--;
-        GameObject proj = Instantiate(myProjectile, transform.position, transform.rotation, null);
-        proj.name = myProjectile.name;
+
+        GameObject proj = ObjectPooler.SharedInstance.GetPooledObject(3); // 3 is theplayer projectile
+        proj.transform.position = transform.position;
+        proj.transform.rotation = transform.rotation;
+
+        proj.SetActive(true);
         proj.GetComponent<Rigidbody2D>().velocity = transform.up * 15;       
     }
 

@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 0}
   speed: 5
+  gm: {fileID: 0}
 --- !u!114 &114233602047506164
 MonoBehaviour:
   m_ObjectHideFlags: 1

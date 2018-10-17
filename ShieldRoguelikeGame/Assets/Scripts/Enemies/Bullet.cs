@@ -40,14 +40,14 @@ public class Bullet : MonoBehaviour {
             if(shield.mState == Shield.States.Storing)
             {
                 shield.SendMessage("ProjectileDeflected", 1);
-                Destroy(this.gameObject);
+                gameObject.SetActive(false);
                 return;
             }              
             StartCoroutine(ChangeSpeed(shield));
         }          
         else if (col.transform.tag == "Player")
         {
-            Destroy(col.gameObject);
+            col.gameObject.SendMessage("Die");
             gameObject.SetActive(false);          
 
         }

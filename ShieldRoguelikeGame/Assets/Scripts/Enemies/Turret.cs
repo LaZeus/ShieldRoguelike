@@ -17,12 +17,17 @@ public class Turret : Enemy {
 	
 	private void Start()
     {
-        InvokeRepeating("Shoot", 0.5f, 1f);
+        InvokeRepeating("Shoot", 2f, 0.5f);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        CancelInvoke();
+        if (c != 0)
+            cam.ShakeCamera(1f, 0.4f);
+
+        c++;
+
+        CancelInvoke("Shoot");       
     }
 
     private void Shoot()

@@ -104,7 +104,7 @@ public class Chaser : Enemy {
         }
         else if(col.transform.tag == "Player")
         {
-            Destroy(col.transform.gameObject);
+            col.gameObject.SendMessage("Die");
         }
         else if (col.transform.tag == "PlayerAttack")
         {
@@ -117,17 +117,20 @@ public class Chaser : Enemy {
     {
         mState = States.Stunned;
 
+        gameObject.layer = 14;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.velocity = ((Vector2)transform.position - pos).normalized;
         sprRndr.color = Color.yellow;
 
         yield return new WaitForSeconds(0.5f);
 
-        while (Vector2.Distance(transform.position, player.position) < 0.2f)
-        {
-            yield return null;
-        }
+        if (player != null)
+            while (Vector2.Distance(transform.position, player.position) < 2f)
+            { 
+                yield return null;
+            }
 
+        gameObject.layer = 12;
         rb.bodyType = RigidbodyType2D.Dynamic;
         mState = States.Normal;
         sprRndr.color = Color.cyan;

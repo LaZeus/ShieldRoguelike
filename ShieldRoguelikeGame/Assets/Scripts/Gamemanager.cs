@@ -15,4 +15,9 @@ public class Gamemanager : MonoBehaviour {
     {
 		
 	}
+
+    private void PlayerDied()
+    {
+        Debug.Log("oof");
+    }
 }
