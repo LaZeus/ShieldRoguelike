@@ -108,8 +108,8 @@ public class Chaser : Enemy {
         }
         else if (col.transform.tag == "PlayerAttack")
         {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
+            col.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
@@ -122,6 +122,11 @@ public class Chaser : Enemy {
         sprRndr.color = Color.yellow;
 
         yield return new WaitForSeconds(0.5f);
+
+        while (Vector2.Distance(transform.position, player.position) < 0.2f)
+        {
+            yield return null;
+        }
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         mState = States.Normal;

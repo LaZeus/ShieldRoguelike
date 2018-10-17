@@ -8,22 +8,21 @@ public class Turret : Enemy {
     private GameObject bullet;
 
     [SerializeField]
-    private Transform bulletPool;
-
-    [SerializeField]
     private float bulletSpeed;
 
 	private void Awake ()
     {
         FindPlayer();
-
-        if (bulletPool == null)
-            bulletPool = GameObject.Find("Bullets").transform;
 	}
 	
 	private void Start()
     {
         InvokeRepeating("Shoot", 0.5f, 1f);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 
     private void Shoot()
@@ -37,9 +36,14 @@ public class Turret : Enemy {
         float rot = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
         Quaternion summonRot = Quaternion.Euler(0, 0, rot - 90);
 
-        GameObject bul = Instantiate(bullet, summonPos, summonRot, transform);
+        GameObject bul = ObjectPooler.SharedInstance.GetPooledObject(2); // 2 is bullet
+
+        bul.transform.position = summonPos;
+        bul.transform.rotation = summonRot;
+
         bul.name = bullet.name;
-        bul.transform.parent = bulletPool;
+
+        bul.SetActive(true);
 
         bul.GetComponent<Rigidbody2D>().velocity = dif * bulletSpeed;
     }

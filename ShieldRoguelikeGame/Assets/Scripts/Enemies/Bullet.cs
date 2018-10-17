@@ -22,7 +22,9 @@ public class Bullet : MonoBehaviour {
     {
         if (col.tag == "Turret" && gameObject.layer == 11)
         {
-            Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            gameObject.layer = 9;
         }
     }
 
@@ -46,8 +48,13 @@ public class Bullet : MonoBehaviour {
         else if (col.transform.tag == "Player")
         {
             Destroy(col.gameObject);
-            Destroy(this.gameObject);          
-            // replace this with a message to the player or GM
+            gameObject.SetActive(false);          
+
+        }
+        else if(col.transform.tag == "Wall")
+        {
+            gameObject.SetActive(false);
+            gameObject.layer = 9;
         }
     }
 

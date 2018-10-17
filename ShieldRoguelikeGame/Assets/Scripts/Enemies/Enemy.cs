@@ -19,8 +19,8 @@ public class Enemy : MonoBehaviour {
     {
         if (col.tag == "PlayerAttack")
         {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
+            col.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }
