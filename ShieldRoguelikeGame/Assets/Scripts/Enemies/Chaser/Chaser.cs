@@ -22,9 +22,12 @@ public class Chaser : Enemy {
 
     protected Coroutine AttackingCoroutine;
 
+    private ChaserEntry binding;
 
     void Awake ()
     {
+        binding = ChaserFlockManager.AddChaser(this);
+
         FindPlayer();
 
         mState = States.Normal;
@@ -52,7 +55,7 @@ public class Chaser : Enemy {
         if (player == null)
             rb.velocity = Vector2.zero;
         else
-            rb.velocity = (player.transform.position - transform.position).normalized * speed;     
+            rb.velocity = (binding.WantedPosition - transform.position).normalized * speed;     
     }
 
     protected void Charge()
@@ -78,7 +81,7 @@ public class Chaser : Enemy {
 
         if (player != null)
         {
-            Vector2 target = player.transform.position + (player.transform.position - transform.position).normalized;
+            Vector2 target = binding.WantedPosition + (binding.WantedPosition - transform.position).normalized;
 
             rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
 
@@ -125,7 +128,7 @@ public class Chaser : Enemy {
         yield return new WaitForSeconds(0.5f);
 
         if (player != null)
-            while (Vector2.Distance(transform.position, player.position) < 2f)
+            while (Vector2.Distance(transform.position, binding.WantedPosition) < 2f)
             { 
                 yield return null;
             }
