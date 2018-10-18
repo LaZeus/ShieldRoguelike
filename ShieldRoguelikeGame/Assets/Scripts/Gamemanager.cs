@@ -13,7 +13,7 @@ public class Gamemanager : MonoBehaviour {
 	
 	void Update ()
     {
-		
+        
 	}
 
     private void PlayerDied()
