@@ -26,8 +26,6 @@ public class Chaser : Enemy {
 
     void Awake ()
     {
-        binding = ChaserFlockManager.AddChaser(this);
-
         FindPlayer();
 
         mState = States.Normal;
@@ -40,6 +38,8 @@ public class Chaser : Enemy {
 
     private void Start()
     {
+        binding = FindObjectOfType<ChaserFlockManager>().AddChaser(this);
+
         if(Attack != null)
             Attack();
     }
@@ -81,7 +81,7 @@ public class Chaser : Enemy {
 
         if (player != null)
         {
-            Vector2 target = binding.WantedPosition + (binding.WantedPosition - transform.position).normalized;
+            Vector2 target = binding.WantedPosition; // + (binding.WantedPosition - transform.position).normalized;
 
             rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
 
