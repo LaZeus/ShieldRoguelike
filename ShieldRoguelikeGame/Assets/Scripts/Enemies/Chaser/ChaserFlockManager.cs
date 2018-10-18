@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ChaserFlockManager : MonoBehaviour
 {
-    private enum Formations { None, Line, Surround };
-    [SerializeField] private Formations formation = Formations.None;
+    public enum Formations { None, Line, Surround };
+    
+    [HideInInspector] public Formations formation = Formations.None;
+    [HideInInspector] public List<ChaserEntry> chasers;
 
     [Header("No Formation")]
 
@@ -19,21 +21,28 @@ public class ChaserFlockManager : MonoBehaviour
 
     [Header("Surround Formation")]
 
-    [SerializeField] private float surroundRadius = 5; // the radius that the chasers will leave around the player (in surround mode)
-    [SerializeField] private float surroundAngleOffset = 0; // the surround angle offset
+    [SerializeField] private float surroundRadius = 5; // the radius that the chasers will leave around the player
+    [SerializeField] private float surroundRotateSpeed = 1; // the speed that the chasers will rotate around the player
 
+    private float surroundAngleOffset = 0;
     private Transform player;
-    private List<ChaserEntry> chasers;
 
-    private void Start()
+    private void Awake()
     {
         chasers = new List<ChaserEntry>();
     }
 
     private void Update()
     {
-        RecalculatePositions();
+        surroundAngleOffset += Time.deltaTime * surroundRotateSpeed;
+
+        while (surroundAngleOffset > 360)
+        {
+            surroundAngleOffset -= 360;
+        }
+
         PruneChasers();
+        RecalculatePositions();
     }
 
     public ChaserEntry AddChaser(Chaser chaser)
@@ -62,8 +71,8 @@ public class ChaserFlockManager : MonoBehaviour
                     
                     for (int j = 0; j < nearby.Count; j++)
                     {
-                        // FIXME: shouldn't directly apply movement to the reference
-                        chasers[i].Reference.transform.position = Vector2.MoveTowards(chasers[i].CurrentPosition, chasers[i].CurrentPosition + (chasers[i].CurrentPosition - nearby[j].CurrentPosition).normalized * 100, repulsionPower * Time.deltaTime);
+                        chasers[i].WantedPosition = GetHeading(chasers[i].CurrentPosition, nearby[j].CurrentPosition) * repulsionPower;
+                        //chasers[i].Reference.transform.position = Vector2.MoveTowards(chasers[i].CurrentPosition, chasers[i].CurrentPosition + (chasers[i].CurrentPosition - nearby[j].CurrentPosition).normalized * 100, repulsionPower * Time.deltaTime);
                     }
                 }
 
@@ -74,7 +83,6 @@ public class ChaserFlockManager : MonoBehaviour
 
                 for (int i = 0; i < chasers.Count; i++)
                 {
-                    Debug.Log(chasers[i].Reference);
                     float cur = distance * i;
                     chasers[i].WantedPosition = GetPlayerPosition() + new Vector3(cur - lineOffset, 0, 0);
                 }
@@ -82,9 +90,11 @@ public class ChaserFlockManager : MonoBehaviour
                 break;
 
             case Formations.Surround:
+                float key = 360 / chasers.Count;
+
                 for (int i = 0; i < chasers.Count; i++)
                 {
-                    chasers[i].WantedPosition = GetSurroundPosition(GetPlayerPosition(), surroundRadius, 360 / chasers.Count * i + surroundAngleOffset);
+                    chasers[i].WantedPosition = GetSurroundPosition(GetPlayerPosition(), surroundRadius, key * i);
                 }
 
                 break;
@@ -102,13 +112,12 @@ public class ChaserFlockManager : MonoBehaviour
 
     private Vector3 GetSurroundPosition(Vector3 center, float radius, float angle)
     {
-        Vector3 pos;
-        pos.x = center.x + radius * Mathf.Sin(angle);
-        pos.y = center.y + radius * Mathf.Cos(angle);
-        pos.z = center.z;
-        Debug.Log(pos);
+        Vector3 offset;
+        offset.x = radius * Mathf.Cos(angle * Mathf.Deg2Rad + surroundAngleOffset);
+        offset.y = radius * Mathf.Sin(angle * Mathf.Deg2Rad + surroundAngleOffset);
+        offset.z = 0;
 
-        return pos;
+        return center + offset;
     }
 
     private bool IsNearby(ChaserEntry a, ChaserEntry b)

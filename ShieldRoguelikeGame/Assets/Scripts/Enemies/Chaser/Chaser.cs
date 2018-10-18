@@ -67,7 +67,6 @@ public class Chaser : Enemy {
 
     IEnumerator Leap()
     {
-
         yield return new WaitForSeconds(Random.Range(3,10));
 
         mState = States.Attacking;
@@ -77,25 +76,25 @@ public class Chaser : Enemy {
         yield return new WaitForSeconds(0.2f);
 
         sprRndr.color = Color.red;
+        Vector2 target = binding.WantedPosition;
+        float elapsed = 0;
 
-
-        if (player != null)
+        if (player != null && player.gameObject.activeInHierarchy)
         {
-            Vector2 target = binding.WantedPosition; // + (binding.WantedPosition - transform.position).normalized;
-
             rb.velocity = (target - (Vector2)transform.position).normalized * speed * 7;
 
-            while (Vector2.Distance(transform.position, target) > 0.2f)
+            while (Vector2.Distance(transform.position, target) > 0.2f && elapsed < 1)
             {
+                elapsed += Time.deltaTime;
                 yield return null;
             }
-
-            rb.velocity = Vector2.zero;
-            sprRndr.color = Color.cyan;
-            mState = States.Normal;
-
-            Charge();
         }
+
+        rb.velocity = Vector2.zero;
+        sprRndr.color = Color.cyan;
+        mState = States.Normal;
+
+        Charge();
     }
 
     protected void OnCollisionEnter2D(Collision2D col)
