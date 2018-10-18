@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212019982357387142}
   - component: {fileID: 50692751707432192}
   - component: {fileID: 60762510212782514}
+  - component: {fileID: 114819573872274448}
   m_Layer: 11
   m_Name: PlayerProjectile
   m_TagString: PlayerAttack
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832700820638950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8031635, y: -9.926361, z: 6.3203125}
+  m_LocalPosition: {x: 7.83436, y: 3.6122355, z: 6.3203125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,6 +90,17 @@ PolygonCollider2D:
     - - {x: 0, y: 0.5}
       - {x: -0.4330127, y: -0.25000003}
       - {x: 0.43301272, y: -0.24999996}
+--- !u!114 &114819573872274448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832700820638950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44351bbd87de36646b5cb94d8436e185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212019982357387142
 SpriteRenderer:
   m_ObjectHideFlags: 1
