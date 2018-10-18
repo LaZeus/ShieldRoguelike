@@ -10,6 +10,8 @@ public class ChaserFlockManager : MonoBehaviour
     [HideInInspector] public Formations formation = Formations.None;
     [HideInInspector] public List<ChaserEntry> chasers;
 
+    [SerializeField] private int updateDelay;
+
     [Header("No Formation")]
 
     [SerializeField] private float repulsionThreshold = 2; // beyond this distance, the chasers won't try to move away from eachother
@@ -27,6 +29,8 @@ public class ChaserFlockManager : MonoBehaviour
     private float surroundAngleOffset = 0;
     private Transform player;
 
+    private int framesSinceUpdate = 0;
+
     private void Awake()
     {
         chasers = new List<ChaserEntry>();
@@ -34,6 +38,8 @@ public class ChaserFlockManager : MonoBehaviour
 
     private void Update()
     {
+        framesSinceUpdate++;
+        
         surroundAngleOffset += Time.deltaTime * surroundRotateSpeed;
 
         while (surroundAngleOffset > 360)
@@ -42,7 +48,12 @@ public class ChaserFlockManager : MonoBehaviour
         }
 
         PruneChasers();
-        RecalculatePositions();
+
+        if (framesSinceUpdate > updateDelay)
+        {
+            framesSinceUpdate = 0;
+            RecalculatePositions();
+        }
     }
 
     public ChaserEntry AddChaser(Chaser chaser)

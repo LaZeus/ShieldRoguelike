@@ -52,7 +52,7 @@ public class Chaser : Enemy {
 
     protected void Walk()
     {
-        if (player == null)
+        if (player == null || Vector2.Distance(transform.position, binding.WantedPosition) < 0.2f)
             rb.velocity = Vector2.zero;
         else
             rb.velocity = (binding.WantedPosition - transform.position).normalized * speed;     
