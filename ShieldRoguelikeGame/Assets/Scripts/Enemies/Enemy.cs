@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-    protected float healthPoints;
-
     [SerializeField]
     protected Transform player;
 
@@ -35,9 +33,10 @@ public class Enemy : MonoBehaviour {
     protected void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "PlayerAttack")
-        {
+        {         
+            cam.ShakeCamera(0.6f, 0.1f);
+            gameObject.SetActive(false);
             col.gameObject.SetActive(false);
-            gameObject.SetActive(false);                      
         }
     }
 }

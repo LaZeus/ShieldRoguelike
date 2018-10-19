@@ -6,7 +6,6 @@ public class Shield : MonoBehaviour {
 
     public enum States { Normal, Storing, Shooting };
 
-
     public States mState;
 
     [SerializeField]

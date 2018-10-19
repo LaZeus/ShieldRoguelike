@@ -12,16 +12,16 @@ public class Player : PlayerController {
 
     private void Awake()
     {
-        Initialization();
-
-        if (cam == null)
-            cam = GameObject.Find("myCam").GetComponent<CameraShake>();
+        Initialization();    
     }
 
     private void Start()
     {
         if (gm == null)
             gm = GameObject.Find("Gamemanager");
+
+        if (cam == null)
+            cam = GameObject.Find("myCam").GetComponent<CameraShake>();
     }
 
     private void Update()

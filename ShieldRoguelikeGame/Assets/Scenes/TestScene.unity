@@ -158,57 +158,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!1001 &166959121
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 9.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4277148893503566, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114469706201419388, guid: 3a1bff2866467f841b253cf097d30453,
-        type: 2}
-      propertyPath: bulletPool
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1345764265183924, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3a1bff2866467f841b253cf097d30453, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &364761394
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +186,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &364761396
 MonoBehaviour:
@@ -541,11 +490,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4551318036140410, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.11
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4551318036140410, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.85
+      value: 4.33
       objectReference: {fileID: 0}
     - target: {fileID: 4551318036140410, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -569,17 +518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4551318036140410, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 50437748051067686, guid: 5d14de3376cf85940843adb069f3bca3,
-        type: 2}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50437748051067686, guid: 5d14de3376cf85940843adb069f3bca3,
-        type: 2}
-      propertyPath: m_GravityScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d14de3376cf85940843adb069f3bca3, type: 2}
@@ -647,7 +586,7 @@ MonoBehaviour:
     shouldExpand: 1
   - objectToPool: {fileID: 1987051089729606, guid: 3606f9bed0e4d924595134931ca64e6b,
       type: 2}
-    amountToPool: 40
+    amountToPool: 80
     shouldExpand: 1
   - objectToPool: {fileID: 1832700820638950, guid: 15f9773b4f7d2ee41a1ee70cb7bae307,
       type: 2}

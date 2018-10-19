@@ -13,6 +13,9 @@ public class Chaser : Enemy {
 
     protected Rigidbody2D rb;
 
+    [SerializeField]
+    protected GameObject trail;
+
     protected SpriteRenderer sprRndr;
 
     protected delegate void Actions();
@@ -34,6 +37,8 @@ public class Chaser : Enemy {
         rb = transform.GetComponent<Rigidbody2D>();
         Move = Walk;
         Attack = Charge;
+
+        trail.SetActive(false);
     }
 
     private void Start()
@@ -72,11 +77,16 @@ public class Chaser : Enemy {
         mState = States.Attacking;
 
         sprRndr.color = Color.magenta;
+        trail.SetActive(true);
 
         yield return new WaitForSeconds(0.2f);
 
         sprRndr.color = Color.red;
         Vector2 target = binding.WantedPosition;
+
+        if (Vector3.Dot(player.position - transform.position, target) < 0)
+            target *= -1f;
+
         float elapsed = 0;
 
         if (player != null && player.gameObject.activeInHierarchy)
@@ -90,6 +100,7 @@ public class Chaser : Enemy {
             }
         }
 
+        trail.SetActive(false);
         rb.velocity = Vector2.zero;
         sprRndr.color = Color.cyan;
         mState = States.Normal;
@@ -121,6 +132,7 @@ public class Chaser : Enemy {
 
         gameObject.layer = 14;
         rb.bodyType = RigidbodyType2D.Kinematic;
+        trail.SetActive(false);
         rb.velocity = ((Vector2)transform.position - pos).normalized;
         sprRndr.color = Color.yellow;
 

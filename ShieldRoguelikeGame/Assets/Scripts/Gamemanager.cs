@@ -16,6 +16,11 @@ public class Gamemanager : MonoBehaviour {
         
 	}
 
+    private void Spawn()
+    {
+
+    }
+
     private void PlayerDied()
     {
         Debug.Log("oof");
