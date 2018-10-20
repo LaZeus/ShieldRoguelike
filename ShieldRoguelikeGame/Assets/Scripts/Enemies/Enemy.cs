@@ -18,8 +18,9 @@ public class Enemy : MonoBehaviour {
             cam.ShakeCamera(1f, 0.4f);
 
         c++;
-    }
 
+        SpawnParticles();
+    }
 
     protected void FindPlayer()
     {
@@ -28,6 +29,13 @@ public class Enemy : MonoBehaviour {
 
         if (cam == null)
             cam = GameObject.Find("myCam").GetComponent<CameraShake>();
+    }
+
+    protected void SpawnParticles()
+    {
+        GameObject par = ObjectPooler.SharedInstance.GetPooledObject(4);
+        par.transform.position = transform.position;
+        par.SetActive(true);
     }
 
     protected void OnTriggerEnter2D(Collider2D col)

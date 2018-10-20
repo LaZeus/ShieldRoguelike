@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345764265183924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.97, y: 9.7, z: 0}
+  m_LocalPosition: {x: 5.6258087, y: -0.44898915, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536394239364994}
@@ -129,8 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  cam: {fileID: 0}
+  part: {fileID: 1872060245523376, guid: a9227353f9a03494d863cea75a6d0701, type: 2}
   bullet: {fileID: 1987051089729606, guid: 3606f9bed0e4d924595134931ca64e6b, type: 2}
-  bulletPool: {fileID: 0}
   bulletSpeed: 10
 --- !u!212 &212228371961109116
 SpriteRenderer:

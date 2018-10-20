@@ -23,11 +23,13 @@ public class Turret : Enemy {
     protected override void OnDisable()
     {
         if (c != 0)
+        {
             cam.ShakeCamera(1f, 0.4f);
-
+            SpawnParticles();
+        }
         c++;
 
-        CancelInvoke("Shoot");       
+        CancelInvoke("Shoot");
     }
 
     private void Shoot()
