@@ -10,16 +10,26 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     protected CameraShake cam;
 
+    protected GameObject GM;
+
+    protected int scoreValue;
+
     protected int c = 0;
 
     protected virtual void OnDisable()
-    {        
-        if(c != 0)
+    {
+        Disabling();
+    }
+
+    protected void Disabling()
+    {
+        if (c != 0)
+        {
             cam.ShakeCamera(1f, 0.4f);
-
-        c++;
-
-        SpawnParticles();
+            SpawnParticles();
+            GM.SendMessage("IncreaseScore", scoreValue);
+        }
+        c++;      
     }
 
     protected void FindPlayer()
@@ -29,6 +39,9 @@ public class Enemy : MonoBehaviour {
 
         if (cam == null)
             cam = GameObject.Find("myCam").GetComponent<CameraShake>();
+
+        if (GM == null)
+            GM = GameObject.Find("Gamemanager").gameObject;
     }
 
     protected void SpawnParticles()

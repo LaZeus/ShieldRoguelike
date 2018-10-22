@@ -13,6 +13,7 @@ public class Turret : Enemy {
 	private void Awake ()
     {
         FindPlayer();
+        scoreValue = 5;
 	}
 	
 	private void Start()
@@ -22,12 +23,7 @@ public class Turret : Enemy {
 
     protected override void OnDisable()
     {
-        if (c != 0)
-        {
-            cam.ShakeCamera(1f, 0.4f);
-            SpawnParticles();
-        }
-        c++;
+        Disabling();
 
         CancelInvoke("Shoot");
     }

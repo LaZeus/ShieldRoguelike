@@ -31,6 +31,7 @@ public class Chaser : Enemy {
     {
         FindPlayer();
 
+        scoreValue = 10;
         mState = States.Normal;
         sprRndr = transform.GetComponent<SpriteRenderer>();
         sprRndr.color = Color.cyan;
