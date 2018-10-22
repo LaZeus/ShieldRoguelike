@@ -33,11 +33,18 @@ public class Gamemanager : MonoBehaviour {
     [SerializeField]
     private GameObject EndScreenMenu;
 
+    private int[] spawnQuantity = new int[2];
+
     private void Awake()
     {
         for (int i = 0; i < SpawnPoints.Length; i++)
         {
             SpawnPoints[i].AvailableSpawn = true;
+        }
+
+        for (int i = 0; i < spawnQuantity.Length; i++)
+        {
+            spawnQuantity[i] = 1;
         }
 
         scoreOverTime = 3f / 600f;
@@ -47,7 +54,7 @@ public class Gamemanager : MonoBehaviour {
 
     private void Start ()
     {
-        InvokeRepeating("Spawn", 2, 10);
+        InvokeRepeating("Spawn", 3, 10);
 	}
 
     private void Update()
@@ -69,22 +76,31 @@ public class Gamemanager : MonoBehaviour {
     private void Spawn()
     {
         Debug.Log(Time.time);
-        ChoosePoint();
+        StartCoroutine(ChoosePoint());
        
     }
 
-    private void ChoosePoint()
+    IEnumerator ChoosePoint()
     {
         Points[] points = SpawnPoints.Where (o => o.AvailableSpawn == true).ToArray();
 
-        if (points.Length != 0)
+        for (int i = 0; i < spawnQuantity[0]; i++)
         {
-            Debug.Log(points[Random.Range(0, points.Length)].SpawnPoint.name);
-        }
-        else
-        {
-            Debug.Log("Boop");
-        }
+            if (points.Length != 0)
+            {
+                GameObject turret = ObjectPooler.SharedInstance.GetPooledObject(1);
+                turret.transform.position = points[Random.Range(0, points.Length)].SpawnPoint.position;
+                turret.SetActive(true);
+
+                Debug.Log(points[Random.Range(0, points.Length)].SpawnPoint.name);
+            }
+
+            GameObject chaser = ObjectPooler.SharedInstance.GetPooledObject(0);
+            chaser.transform.position = SpawnPoints[Random.Range(0, SpawnPoints.Length)].SpawnPoint.position;
+            chaser.SetActive(true);
+
+            yield return new WaitForSeconds(0.2f);
+        }       
     }
 
     private void PlayerDied()
