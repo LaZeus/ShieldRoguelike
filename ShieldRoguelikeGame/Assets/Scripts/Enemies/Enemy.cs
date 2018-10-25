@@ -27,7 +27,9 @@ public class Enemy : MonoBehaviour {
         {
             cam.ShakeCamera(1f, 0.4f);
             SpawnParticles();
-            GM.SendMessage("IncreaseScore", scoreValue);
+
+            if(GM != null)
+                GM.SendMessage("IncreaseScore", scoreValue);
         }
         c++;      
     }

@@ -25,6 +25,9 @@ public class Gamemanager : MonoBehaviour {
     private TextMeshProUGUI score;
 
     [SerializeField]
+    private TextMeshProUGUI highscore;
+
+    [SerializeField]
     private float scorePoints;
 
     [SerializeField]
@@ -33,7 +36,10 @@ public class Gamemanager : MonoBehaviour {
     [SerializeField]
     private GameObject EndScreenMenu;
 
-    private int[] spawnQuantity = new int[2];
+
+    static private int highscorePoints;
+
+    private float[] spawnQuantity = new float[2];
 
     private void Awake()
     {
@@ -54,7 +60,7 @@ public class Gamemanager : MonoBehaviour {
 
     private void Start ()
     {
-        InvokeRepeating("Spawn", 3, 10);
+        InvokeRepeating("Spawn", 3, 6);
 	}
 
     private void Update()
@@ -91,16 +97,21 @@ public class Gamemanager : MonoBehaviour {
                 GameObject turret = ObjectPooler.SharedInstance.GetPooledObject(1);
                 turret.transform.position = points[Random.Range(0, points.Length)].SpawnPoint.position;
                 turret.SetActive(true);
-
-                Debug.Log(points[Random.Range(0, points.Length)].SpawnPoint.name);
             }
+            yield return new WaitForSeconds(0.15f);
+        }
 
+        for (int i = 0; i < spawnQuantity[1]; i++)
+        {
             GameObject chaser = ObjectPooler.SharedInstance.GetPooledObject(0);
             chaser.transform.position = SpawnPoints[Random.Range(0, SpawnPoints.Length)].SpawnPoint.position;
             chaser.SetActive(true);
 
-            yield return new WaitForSeconds(0.2f);
-        }       
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        spawnQuantity[0] += 0.4f;
+        spawnQuantity[1] += 0.8f;
     }
 
     private void PlayerDied()
@@ -111,5 +122,10 @@ public class Gamemanager : MonoBehaviour {
         score.gameObject.SetActive(false);
         EndScreenMenu.SetActive(true);
         EndScreenMenu.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "SCORE: " + (int)scorePoints;
+
+        if (highscorePoints < scorePoints)
+            highscorePoints = (int)scorePoints;
+
+        highscore.text = "HIGHSCORE: " + highscorePoints;
     }
 }

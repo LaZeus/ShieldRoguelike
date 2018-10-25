@@ -26,6 +26,13 @@ public class Link : MonoBehaviour
     #endif
     }
 
+    public void GoToDiscord()
+	{
+    #if !UNITY_EDITOR
+		openWindow("https://discord.gg/ceqfCKb");
+    #endif
+    }
+
 
 
     [DllImport("__Internal")]
