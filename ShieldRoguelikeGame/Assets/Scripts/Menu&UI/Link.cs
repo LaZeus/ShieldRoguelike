@@ -33,6 +33,13 @@ public class Link : MonoBehaviour
     #endif
     }
 
+    public void GoToPenguLink()
+	{
+    #if !UNITY_EDITOR
+		openWindow("http://fierypenguin.larsons.dk/music/");
+    #endif
+    }
+
 
 
     [DllImport("__Internal")]

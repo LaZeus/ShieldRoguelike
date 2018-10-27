@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114528019413630546}
   m_Layer: 12
   m_Name: Chaser
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,7 +268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   cam: {fileID: 0}
-  part: {fileID: 1872060245523376, guid: a9227353f9a03494d863cea75a6d0701, type: 2}
   speed: 3
   trail: {fileID: 1552561147721176}
 --- !u!212 &212995245730806266

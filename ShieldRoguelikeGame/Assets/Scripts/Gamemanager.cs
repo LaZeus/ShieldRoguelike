@@ -60,7 +60,7 @@ public class Gamemanager : MonoBehaviour {
 
     private void Start ()
     {
-        InvokeRepeating("Spawn", 3, 6);
+        InvokeRepeating("Spawn", 3, 7);
 	}
 
     private void Update()
@@ -90,18 +90,28 @@ public class Gamemanager : MonoBehaviour {
     {
         Points[] points = SpawnPoints.Where (o => o.AvailableSpawn == true).ToArray();
 
-        for (int i = 0; i < spawnQuantity[0]; i++)
+        for (int i = 0; i < Mathf.FloorToInt(spawnQuantity[0]); i++)
         {
             if (points.Length != 0)
             {
                 GameObject turret = ObjectPooler.SharedInstance.GetPooledObject(1);
-                turret.transform.position = points[Random.Range(0, points.Length)].SpawnPoint.position;
+
+                int index = Random.Range(0, points.Length);
+                turret.transform.position = points[index].SpawnPoint.position;
                 turret.SetActive(true);
+
+                Points result = SpawnPoints.First(s => s.SpawnPoint == points[index].SpawnPoint);
+
+                int keyindex = System.Array.FindIndex(SpawnPoints, w => w.SpawnPoint == points[index].SpawnPoint);
+
+                turret.SendMessage("Positioned", keyindex);               
+                SpawnPoints[keyindex].AvailableSpawn = false;
+
             }
             yield return new WaitForSeconds(0.15f);
         }
 
-        for (int i = 0; i < spawnQuantity[1]; i++)
+        for (int i = 0; i < Mathf.FloorToInt(spawnQuantity[1]); i++)
         {
             GameObject chaser = ObjectPooler.SharedInstance.GetPooledObject(0);
             chaser.transform.position = SpawnPoints[Random.Range(0, SpawnPoints.Length)].SpawnPoint.position;
@@ -110,8 +120,14 @@ public class Gamemanager : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
 
-        spawnQuantity[0] += 0.4f;
-        spawnQuantity[1] += 0.8f;
+        spawnQuantity[0] += 0.1f;
+        spawnQuantity[1] += 0.25f;
+    }
+
+    private void TurretDied(int index)
+    {
+        // make position false      
+        SpawnPoints[index].AvailableSpawn = true;
     }
 
     private void PlayerDied()

@@ -10,22 +10,32 @@ public class Turret : Enemy {
     [SerializeField]
     private float bulletSpeed;
 
+    private int turretSpot;
+
 	private void Awake ()
-    {
-        FindPlayer();
+    {       
         scoreValue = 5;
 	}
 	
 	private void Start()
     {
-        InvokeRepeating("Shoot", 2f, 0.5f);
+        FindPlayer();
+        InvokeRepeating("Shoot", 2f, 0.75f);
     }
 
     protected override void OnDisable()
     {
         Disabling();
 
+        if(GM != null)
+            GM.SendMessage("TurretDied", turretSpot);
+
         CancelInvoke("Shoot");
+    }
+
+    private void Positioned(int t)
+    {
+        turretSpot = t;
     }
 
     private void Shoot()
