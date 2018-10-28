@@ -12,6 +12,8 @@ public class Turret : Enemy {
 
     private int turretSpot;
 
+    public static int counter = 0;
+
 	private void Awake ()
     {       
         scoreValue = 5;
@@ -20,6 +22,10 @@ public class Turret : Enemy {
 	private void Start()
     {
         FindPlayer();
+    }
+
+    private void OnEnable()
+    {
         InvokeRepeating("Shoot", 2f, 0.75f);
     }
 
@@ -42,7 +48,10 @@ public class Turret : Enemy {
     {
         if (player == null)
             return;
-        
+
+        counter++;
+        Debug.Log(counter);
+
         Vector3 dif = (player.position - transform.position).normalized;
         Vector3 summonPos = transform.position;
 
@@ -50,6 +59,9 @@ public class Turret : Enemy {
         Quaternion summonRot = Quaternion.Euler(0, 0, rot - 90);
 
         GameObject bul = ObjectPooler.SharedInstance.GetPooledObject(2); // 2 is bullet
+
+        if (bul == null)
+            Debug.LogWarning("bullet is null");
 
         bul.transform.position = summonPos;
         bul.transform.rotation = summonRot;

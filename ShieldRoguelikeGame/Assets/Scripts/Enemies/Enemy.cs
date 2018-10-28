@@ -14,8 +14,6 @@ public class Enemy : MonoBehaviour {
 
     protected int scoreValue;
 
-    protected int c = 0;
-
     protected virtual void OnDisable()
     {
         Disabling();
@@ -23,15 +21,11 @@ public class Enemy : MonoBehaviour {
 
     protected void Disabling()
     {
-        if (c != 0)
-        {
-            cam.ShakeCamera(1f, 0.4f);
-            SpawnParticles();
+        cam.ShakeCamera(1f, 0.4f);
+        SpawnParticles();
 
-            if(GM != null)
-                GM.SendMessage("IncreaseScore", scoreValue);
-        }
-        c++;      
+        if (GM != null)
+            GM.SendMessage("IncreaseScore", scoreValue);
     }
 
     protected void FindPlayer()

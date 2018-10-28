@@ -80,10 +80,8 @@ public class Gamemanager : MonoBehaviour {
     }
 
     private void Spawn()
-    {
-        Debug.Log(Time.time);
-        StartCoroutine(ChoosePoint());
-       
+    {       
+        StartCoroutine(ChoosePoint());      
     }
 
     IEnumerator ChoosePoint()
@@ -99,8 +97,6 @@ public class Gamemanager : MonoBehaviour {
                 int index = Random.Range(0, points.Length);
                 turret.transform.position = points[index].SpawnPoint.position;
                 turret.SetActive(true);
-
-                Points result = SpawnPoints.First(s => s.SpawnPoint == points[index].SpawnPoint);
 
                 int keyindex = System.Array.FindIndex(SpawnPoints, w => w.SpawnPoint == points[index].SpawnPoint);
 

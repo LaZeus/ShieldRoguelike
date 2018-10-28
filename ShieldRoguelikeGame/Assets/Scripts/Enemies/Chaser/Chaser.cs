@@ -114,7 +114,9 @@ public class Chaser : Enemy {
         if(col.transform.tag == "Shield")
         {
             StopCoroutine(AttackingCoroutine);
-            StartCoroutine(Stunned(col.transform.position));
+
+            if(gameObject.activeInHierarchy)
+                StartCoroutine(Stunned(col.transform.position));
         }
         else if(col.transform.tag == "Player")
         {

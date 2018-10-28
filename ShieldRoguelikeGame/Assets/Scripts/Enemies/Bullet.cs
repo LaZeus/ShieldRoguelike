@@ -68,14 +68,18 @@ public class Bullet : MonoBehaviour {
         if(col.transform.tag == "Shield")
         {
             Shield shield = col.transform.parent.GetComponent<Shield>();
-            if(shield.mState == Shield.States.Storing)
+            if (shield.mState == Shield.States.Storing)
             {
                 shield.SendMessage("ProjectileDeflected", 1);
                 gameObject.SetActive(false);
                 return;
             }
-            ChangeColor();
-            StartCoroutine(ChangeSpeed(shield));
+            else
+            {
+                ChangeColor();
+
+                StartCoroutine(ChangeSpeed(shield));
+            }
         }          
         else if (col.transform.tag == "Player")
         {
@@ -103,14 +107,18 @@ public class Bullet : MonoBehaviour {
     {       
         yield return new WaitForFixedUpdate();
 
-        // rotation
-        Vector2 vel = rb.velocity;
-        float rot = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rot - 90);
+        if (gameObject.activeInHierarchy)
+        {
+            // rotation
+            Vector2 vel = rb.velocity;
+            float rot = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rot - 90);
 
-        // speed
-        rb.velocity = rb.velocity.normalized * deflectedBulletSpeed;
-        transform.gameObject.layer = playerBullets;
-        sprt.color = Color.blue;
+            // speed
+            rb.velocity = rb.velocity.normalized * deflectedBulletSpeed;
+            // layer
+            transform.gameObject.layer = playerBullets;
+            sprt.color = Color.blue;
+        }
     }
 }
